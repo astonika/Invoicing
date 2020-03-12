@@ -2,16 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xu.dao.ManagersDao">
   <resultMap id="BaseResultMap" type="com.xu.bean.Managers">
-    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="bank" jdbcType="VARCHAR" property="bank" />
-    <result column="bank_account" jdbcType="BIGINT" property="bankAccount" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
-    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
-    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
-    <result column="tel_phone" jdbcType="VARCHAR" property="telPhone" />
-    <result column="zip" jdbcType="VARCHAR" property="zip" />
+    <id column="managers_id" jdbcType="BIGINT" property="managersId" />
+    <result column="managers_age" jdbcType="BIGINT" property="managersAge" />
+    <result column="managers_gender" jdbcType="VARCHAR" property="managersGender" />
+    <result column="managers_name" jdbcType="VARCHAR" property="managersName" />
+    <result column="managers_password" jdbcType="VARCHAR" property="managersPassword" />
+    <result column="managers_phonenumber" jdbcType="VARCHAR" property="managersPhonenumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,8 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    customer_id, address, bank, bank_account, email, link_man, link_tel, customer_name, 
-    tel_phone, zip
+    managers_id, managers_age, managers_gender, managers_name, managers_password, managers_phonenumber
   </sql>
   <select id="selectByExample" parameterType="com.xu.bean.ManagersExample" resultMap="BaseResultMap">
     select
@@ -81,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from customer
+    from managers
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,134 +87,88 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    from managers
+    where managers_id = #{managersId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    delete from managers
+    where managers_id = #{managersId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.xu.bean.ManagersExample">
-    delete from customer
+    delete from managers
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xu.bean.Managers">
-    insert into customer (customer_id, address, bank, 
-      bank_account, email, link_man, 
-      link_tel, customer_name, tel_phone, 
-      zip)
-    values (#{customerId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
-      #{bankAccount,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
-      #{linkTel,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{telPhone,jdbcType=VARCHAR}, 
-      #{zip,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="managers_id" keyProperty="managersId" parameterType="com.xu.bean.Managers" useGeneratedKeys="true">
+    insert into managers (managers_age, managers_gender, managers_name, 
+      managers_password, managers_phonenumber)
+    values (#{managersAge,jdbcType=BIGINT}, #{managersGender,jdbcType=VARCHAR}, #{managersName,jdbcType=VARCHAR}, 
+      #{managersPassword,jdbcType=VARCHAR}, #{managersPhonenumber,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.xu.bean.Managers">
-    insert into customer
+  <insert id="insertSelective" keyColumn="managers_id" keyProperty="managersId" parameterType="com.xu.bean.Managers" useGeneratedKeys="true">
+    insert into managers
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="customerId != null">
-        customer_id,
+      <if test="managersAge != null">
+        managers_age,
       </if>
-      <if test="address != null">
-        address,
+      <if test="managersGender != null">
+        managers_gender,
       </if>
-      <if test="bank != null">
-        bank,
+      <if test="managersName != null">
+        managers_name,
       </if>
-      <if test="bankAccount != null">
-        bank_account,
+      <if test="managersPassword != null">
+        managers_password,
       </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="linkMan != null">
-        link_man,
-      </if>
-      <if test="linkTel != null">
-        link_tel,
-      </if>
-      <if test="customerName != null">
-        customer_name,
-      </if>
-      <if test="telPhone != null">
-        tel_phone,
-      </if>
-      <if test="zip != null">
-        zip,
+      <if test="managersPhonenumber != null">
+        managers_phonenumber,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="customerId != null">
-        #{customerId,jdbcType=BIGINT},
+      <if test="managersAge != null">
+        #{managersAge,jdbcType=BIGINT},
       </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
+      <if test="managersGender != null">
+        #{managersGender,jdbcType=VARCHAR},
       </if>
-      <if test="bank != null">
-        #{bank,jdbcType=VARCHAR},
+      <if test="managersName != null">
+        #{managersName,jdbcType=VARCHAR},
       </if>
-      <if test="bankAccount != null">
-        #{bankAccount,jdbcType=BIGINT},
+      <if test="managersPassword != null">
+        #{managersPassword,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="linkMan != null">
-        #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        #{zip,jdbcType=VARCHAR},
+      <if test="managersPhonenumber != null">
+        #{managersPhonenumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xu.bean.ManagersExample" resultType="java.lang.Long">
-    select count(*) from customer
+    select count(*) from managers
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update customer
+    update managers
     <set>
-      <if test="record.customerId != null">
-        customer_id = #{record.customerId,jdbcType=BIGINT},
+      <if test="record.managersId != null">
+        managers_id = #{record.managersId,jdbcType=BIGINT},
       </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.managersAge != null">
+        managers_age = #{record.managersAge,jdbcType=BIGINT},
       </if>
-      <if test="record.bank != null">
-        bank = #{record.bank,jdbcType=VARCHAR},
+      <if test="record.managersGender != null">
+        managers_gender = #{record.managersGender,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankAccount != null">
-        bank_account = #{record.bankAccount,jdbcType=BIGINT},
+      <if test="record.managersName != null">
+        managers_name = #{record.managersName,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.managersPassword != null">
+        managers_password = #{record.managersPassword,jdbcType=VARCHAR},
       </if>
-      <if test="record.linkMan != null">
-        link_man = #{record.linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="record.linkTel != null">
-        link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.customerName != null">
-        customer_name = #{record.customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.telPhone != null">
-        tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zip != null">
-        zip = #{record.zip,jdbcType=VARCHAR},
+      <if test="record.managersPhonenumber != null">
+        managers_phonenumber = #{record.managersPhonenumber,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -227,65 +176,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update customer
-    set customer_id = #{record.customerId,jdbcType=BIGINT},
-      address = #{record.address,jdbcType=VARCHAR},
-      bank = #{record.bank,jdbcType=VARCHAR},
-      bank_account = #{record.bankAccount,jdbcType=BIGINT},
-      email = #{record.email,jdbcType=VARCHAR},
-      link_man = #{record.linkMan,jdbcType=VARCHAR},
-      link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      customer_name = #{record.customerName,jdbcType=VARCHAR},
-      tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      zip = #{record.zip,jdbcType=VARCHAR}
+    update managers
+    set managers_id = #{record.managersId,jdbcType=BIGINT},
+      managers_age = #{record.managersAge,jdbcType=BIGINT},
+      managers_gender = #{record.managersGender,jdbcType=VARCHAR},
+      managers_name = #{record.managersName,jdbcType=VARCHAR},
+      managers_password = #{record.managersPassword,jdbcType=VARCHAR},
+      managers_phonenumber = #{record.managersPhonenumber,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xu.bean.Managers">
-    update customer
+    update managers
     <set>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+      <if test="managersAge != null">
+        managers_age = #{managersAge,jdbcType=BIGINT},
       </if>
-      <if test="bank != null">
-        bank = #{bank,jdbcType=VARCHAR},
+      <if test="managersGender != null">
+        managers_gender = #{managersGender,jdbcType=VARCHAR},
       </if>
-      <if test="bankAccount != null">
-        bank_account = #{bankAccount,jdbcType=BIGINT},
+      <if test="managersName != null">
+        managers_name = #{managersName,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="managersPassword != null">
+        managers_password = #{managersPassword,jdbcType=VARCHAR},
       </if>
-      <if test="linkMan != null">
-        link_man = #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        link_tel = #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        customer_name = #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        tel_phone = #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        zip = #{zip,jdbcType=VARCHAR},
+      <if test="managersPhonenumber != null">
+        managers_phonenumber = #{managersPhonenumber,jdbcType=VARCHAR},
       </if>
     </set>
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    where managers_id = #{managersId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xu.bean.Managers">
-    update customer
-    set address = #{address,jdbcType=VARCHAR},
-      bank = #{bank,jdbcType=VARCHAR},
-      bank_account = #{bankAccount,jdbcType=BIGINT},
-      email = #{email,jdbcType=VARCHAR},
-      link_man = #{linkMan,jdbcType=VARCHAR},
-      link_tel = #{linkTel,jdbcType=VARCHAR},
-      customer_name = #{customerName,jdbcType=VARCHAR},
-      tel_phone = #{telPhone,jdbcType=VARCHAR},
-      zip = #{zip,jdbcType=VARCHAR}
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    update managers
+    set managers_age = #{managersAge,jdbcType=BIGINT},
+      managers_gender = #{managersGender,jdbcType=VARCHAR},
+      managers_name = #{managersName,jdbcType=VARCHAR},
+      managers_password = #{managersPassword,jdbcType=VARCHAR},
+      managers_phonenumber = #{managersPhonenumber,jdbcType=VARCHAR}
+    where managers_id = #{managersId,jdbcType=BIGINT}
   </update>
 </mapper>

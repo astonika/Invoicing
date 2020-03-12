@@ -10,7 +10,7 @@ public interface GoodsDao {
 
     int deleteByExample(GoodsExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long goodsId);
 
     int insert(Goods record);
 
@@ -18,7 +18,7 @@ public interface GoodsDao {
 
     List<Goods> selectByExample(GoodsExample example);
 
-    Goods selectByPrimaryKey(Long customerId);
+    Goods selectByPrimaryKey(Long goodsId);
 
     int updateByExampleSelective(@Param("record") Goods record, @Param("example") GoodsExample example);
 

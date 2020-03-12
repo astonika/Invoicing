@@ -2,16 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xu.dao.SaleReturnOrderDao">
   <resultMap id="BaseResultMap" type="com.xu.bean.SaleReturnOrder">
-    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="bank" jdbcType="VARCHAR" property="bank" />
-    <result column="bank_account" jdbcType="BIGINT" property="bankAccount" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
-    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
-    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
-    <result column="tel_phone" jdbcType="VARCHAR" property="telPhone" />
-    <result column="zip" jdbcType="VARCHAR" property="zip" />
+    <id column="sale_return_order_id" jdbcType="BIGINT" property="saleReturnOrderId" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="sale_return_order_pay" jdbcType="VARCHAR" property="saleReturnOrderPay" />
+    <result column="sale_return_order_return_date" jdbcType="TIMESTAMP" property="saleReturnOrderReturnDate" />
+    <result column="sale_return_order_total" jdbcType="DOUBLE" property="saleReturnOrderTotal" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,8 +67,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    customer_id, address, bank, bank_account, email, link_man, link_tel, customer_name, 
-    tel_phone, zip
+    sale_return_order_id, customer_id, sale_return_order_pay, sale_return_order_return_date, 
+    sale_return_order_total
   </sql>
   <select id="selectByExample" parameterType="com.xu.bean.SaleReturnOrderExample" resultMap="BaseResultMap">
     select
@@ -81,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from customer
+    from sale_return_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,134 +87,79 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    from sale_return_order
+    where sale_return_order_id = #{saleReturnOrderId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    delete from sale_return_order
+    where sale_return_order_id = #{saleReturnOrderId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.xu.bean.SaleReturnOrderExample">
-    delete from customer
+    delete from sale_return_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xu.bean.SaleReturnOrder">
-    insert into customer (customer_id, address, bank, 
-      bank_account, email, link_man, 
-      link_tel, customer_name, tel_phone, 
-      zip)
-    values (#{customerId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
-      #{bankAccount,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
-      #{linkTel,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{telPhone,jdbcType=VARCHAR}, 
-      #{zip,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="sale_return_order_id" keyProperty="saleReturnOrderId" parameterType="com.xu.bean.SaleReturnOrder" useGeneratedKeys="true">
+    insert into sale_return_order (customer_id, sale_return_order_pay, sale_return_order_return_date, 
+      sale_return_order_total)
+    values (#{customerId,jdbcType=BIGINT}, #{saleReturnOrderPay,jdbcType=VARCHAR}, #{saleReturnOrderReturnDate,jdbcType=TIMESTAMP}, 
+      #{saleReturnOrderTotal,jdbcType=DOUBLE})
   </insert>
-  <insert id="insertSelective" parameterType="com.xu.bean.SaleReturnOrder">
-    insert into customer
+  <insert id="insertSelective" keyColumn="sale_return_order_id" keyProperty="saleReturnOrderId" parameterType="com.xu.bean.SaleReturnOrder" useGeneratedKeys="true">
+    insert into sale_return_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="customerId != null">
         customer_id,
       </if>
-      <if test="address != null">
-        address,
+      <if test="saleReturnOrderPay != null">
+        sale_return_order_pay,
       </if>
-      <if test="bank != null">
-        bank,
+      <if test="saleReturnOrderReturnDate != null">
+        sale_return_order_return_date,
       </if>
-      <if test="bankAccount != null">
-        bank_account,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="linkMan != null">
-        link_man,
-      </if>
-      <if test="linkTel != null">
-        link_tel,
-      </if>
-      <if test="customerName != null">
-        customer_name,
-      </if>
-      <if test="telPhone != null">
-        tel_phone,
-      </if>
-      <if test="zip != null">
-        zip,
+      <if test="saleReturnOrderTotal != null">
+        sale_return_order_total,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="customerId != null">
         #{customerId,jdbcType=BIGINT},
       </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
+      <if test="saleReturnOrderPay != null">
+        #{saleReturnOrderPay,jdbcType=VARCHAR},
       </if>
-      <if test="bank != null">
-        #{bank,jdbcType=VARCHAR},
+      <if test="saleReturnOrderReturnDate != null">
+        #{saleReturnOrderReturnDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="bankAccount != null">
-        #{bankAccount,jdbcType=BIGINT},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="linkMan != null">
-        #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        #{zip,jdbcType=VARCHAR},
+      <if test="saleReturnOrderTotal != null">
+        #{saleReturnOrderTotal,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xu.bean.SaleReturnOrderExample" resultType="java.lang.Long">
-    select count(*) from customer
+    select count(*) from sale_return_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update customer
+    update sale_return_order
     <set>
+      <if test="record.saleReturnOrderId != null">
+        sale_return_order_id = #{record.saleReturnOrderId,jdbcType=BIGINT},
+      </if>
       <if test="record.customerId != null">
         customer_id = #{record.customerId,jdbcType=BIGINT},
       </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.saleReturnOrderPay != null">
+        sale_return_order_pay = #{record.saleReturnOrderPay,jdbcType=VARCHAR},
       </if>
-      <if test="record.bank != null">
-        bank = #{record.bank,jdbcType=VARCHAR},
+      <if test="record.saleReturnOrderReturnDate != null">
+        sale_return_order_return_date = #{record.saleReturnOrderReturnDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.bankAccount != null">
-        bank_account = #{record.bankAccount,jdbcType=BIGINT},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.linkMan != null">
-        link_man = #{record.linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="record.linkTel != null">
-        link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.customerName != null">
-        customer_name = #{record.customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.telPhone != null">
-        tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zip != null">
-        zip = #{record.zip,jdbcType=VARCHAR},
+      <if test="record.saleReturnOrderTotal != null">
+        sale_return_order_total = #{record.saleReturnOrderTotal,jdbcType=DOUBLE},
       </if>
     </set>
     <if test="_parameter != null">
@@ -227,65 +167,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update customer
-    set customer_id = #{record.customerId,jdbcType=BIGINT},
-      address = #{record.address,jdbcType=VARCHAR},
-      bank = #{record.bank,jdbcType=VARCHAR},
-      bank_account = #{record.bankAccount,jdbcType=BIGINT},
-      email = #{record.email,jdbcType=VARCHAR},
-      link_man = #{record.linkMan,jdbcType=VARCHAR},
-      link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      customer_name = #{record.customerName,jdbcType=VARCHAR},
-      tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      zip = #{record.zip,jdbcType=VARCHAR}
+    update sale_return_order
+    set sale_return_order_id = #{record.saleReturnOrderId,jdbcType=BIGINT},
+      customer_id = #{record.customerId,jdbcType=BIGINT},
+      sale_return_order_pay = #{record.saleReturnOrderPay,jdbcType=VARCHAR},
+      sale_return_order_return_date = #{record.saleReturnOrderReturnDate,jdbcType=TIMESTAMP},
+      sale_return_order_total = #{record.saleReturnOrderTotal,jdbcType=DOUBLE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xu.bean.SaleReturnOrder">
-    update customer
+    update sale_return_order
     <set>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
       </if>
-      <if test="bank != null">
-        bank = #{bank,jdbcType=VARCHAR},
+      <if test="saleReturnOrderPay != null">
+        sale_return_order_pay = #{saleReturnOrderPay,jdbcType=VARCHAR},
       </if>
-      <if test="bankAccount != null">
-        bank_account = #{bankAccount,jdbcType=BIGINT},
+      <if test="saleReturnOrderReturnDate != null">
+        sale_return_order_return_date = #{saleReturnOrderReturnDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="linkMan != null">
-        link_man = #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        link_tel = #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        customer_name = #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        tel_phone = #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        zip = #{zip,jdbcType=VARCHAR},
+      <if test="saleReturnOrderTotal != null">
+        sale_return_order_total = #{saleReturnOrderTotal,jdbcType=DOUBLE},
       </if>
     </set>
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    where sale_return_order_id = #{saleReturnOrderId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xu.bean.SaleReturnOrder">
-    update customer
-    set address = #{address,jdbcType=VARCHAR},
-      bank = #{bank,jdbcType=VARCHAR},
-      bank_account = #{bankAccount,jdbcType=BIGINT},
-      email = #{email,jdbcType=VARCHAR},
-      link_man = #{linkMan,jdbcType=VARCHAR},
-      link_tel = #{linkTel,jdbcType=VARCHAR},
-      customer_name = #{customerName,jdbcType=VARCHAR},
-      tel_phone = #{telPhone,jdbcType=VARCHAR},
-      zip = #{zip,jdbcType=VARCHAR}
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    update sale_return_order
+    set customer_id = #{customerId,jdbcType=BIGINT},
+      sale_return_order_pay = #{saleReturnOrderPay,jdbcType=VARCHAR},
+      sale_return_order_return_date = #{saleReturnOrderReturnDate,jdbcType=TIMESTAMP},
+      sale_return_order_total = #{saleReturnOrderTotal,jdbcType=DOUBLE}
+    where sale_return_order_id = #{saleReturnOrderId,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -2,16 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xu.dao.SaleItemDao">
   <resultMap id="BaseResultMap" type="com.xu.bean.SaleItem">
-    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="bank" jdbcType="VARCHAR" property="bank" />
-    <result column="bank_account" jdbcType="BIGINT" property="bankAccount" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
-    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
-    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
-    <result column="tel_phone" jdbcType="VARCHAR" property="telPhone" />
-    <result column="zip" jdbcType="VARCHAR" property="zip" />
+    <id column="sale_item_id" jdbcType="BIGINT" property="saleItemId" />
+    <result column="sale_item_count" jdbcType="BIGINT" property="saleItemCount" />
+    <result column="customer_id" jdbcType="BIGINT" property="customerId" />
+    <result column="sale_item_name" jdbcType="VARCHAR" property="saleItemName" />
+    <result column="sale_item_price" jdbcType="DOUBLE" property="saleItemPrice" />
+    <result column="sale_order_id" jdbcType="BIGINT" property="saleOrderId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,8 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    customer_id, address, bank, bank_account, email, link_man, link_tel, customer_name, 
-    tel_phone, zip
+    sale_item_id, sale_item_count, customer_id, sale_item_name, sale_item_price, sale_order_id
   </sql>
   <select id="selectByExample" parameterType="com.xu.bean.SaleItemExample" resultMap="BaseResultMap">
     select
@@ -81,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from customer
+    from sale_item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,134 +87,88 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    from sale_item
+    where sale_item_id = #{saleItemId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    delete from sale_item
+    where sale_item_id = #{saleItemId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.xu.bean.SaleItemExample">
-    delete from customer
+    delete from sale_item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xu.bean.SaleItem">
-    insert into customer (customer_id, address, bank, 
-      bank_account, email, link_man, 
-      link_tel, customer_name, tel_phone, 
-      zip)
-    values (#{customerId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
-      #{bankAccount,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
-      #{linkTel,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{telPhone,jdbcType=VARCHAR}, 
-      #{zip,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="sale_item_id" keyProperty="saleItemId" parameterType="com.xu.bean.SaleItem" useGeneratedKeys="true">
+    insert into sale_item (sale_item_count, customer_id, sale_item_name, 
+      sale_item_price, sale_order_id)
+    values (#{saleItemCount,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{saleItemName,jdbcType=VARCHAR}, 
+      #{saleItemPrice,jdbcType=DOUBLE}, #{saleOrderId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.xu.bean.SaleItem">
-    insert into customer
+  <insert id="insertSelective" keyColumn="sale_item_id" keyProperty="saleItemId" parameterType="com.xu.bean.SaleItem" useGeneratedKeys="true">
+    insert into sale_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="saleItemCount != null">
+        sale_item_count,
+      </if>
       <if test="customerId != null">
         customer_id,
       </if>
-      <if test="address != null">
-        address,
+      <if test="saleItemName != null">
+        sale_item_name,
       </if>
-      <if test="bank != null">
-        bank,
+      <if test="saleItemPrice != null">
+        sale_item_price,
       </if>
-      <if test="bankAccount != null">
-        bank_account,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="linkMan != null">
-        link_man,
-      </if>
-      <if test="linkTel != null">
-        link_tel,
-      </if>
-      <if test="customerName != null">
-        customer_name,
-      </if>
-      <if test="telPhone != null">
-        tel_phone,
-      </if>
-      <if test="zip != null">
-        zip,
+      <if test="saleOrderId != null">
+        sale_order_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="saleItemCount != null">
+        #{saleItemCount,jdbcType=BIGINT},
+      </if>
       <if test="customerId != null">
         #{customerId,jdbcType=BIGINT},
       </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
+      <if test="saleItemName != null">
+        #{saleItemName,jdbcType=VARCHAR},
       </if>
-      <if test="bank != null">
-        #{bank,jdbcType=VARCHAR},
+      <if test="saleItemPrice != null">
+        #{saleItemPrice,jdbcType=DOUBLE},
       </if>
-      <if test="bankAccount != null">
-        #{bankAccount,jdbcType=BIGINT},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="linkMan != null">
-        #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        #{zip,jdbcType=VARCHAR},
+      <if test="saleOrderId != null">
+        #{saleOrderId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xu.bean.SaleItemExample" resultType="java.lang.Long">
-    select count(*) from customer
+    select count(*) from sale_item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update customer
+    update sale_item
     <set>
+      <if test="record.saleItemId != null">
+        sale_item_id = #{record.saleItemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.saleItemCount != null">
+        sale_item_count = #{record.saleItemCount,jdbcType=BIGINT},
+      </if>
       <if test="record.customerId != null">
         customer_id = #{record.customerId,jdbcType=BIGINT},
       </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.saleItemName != null">
+        sale_item_name = #{record.saleItemName,jdbcType=VARCHAR},
       </if>
-      <if test="record.bank != null">
-        bank = #{record.bank,jdbcType=VARCHAR},
+      <if test="record.saleItemPrice != null">
+        sale_item_price = #{record.saleItemPrice,jdbcType=DOUBLE},
       </if>
-      <if test="record.bankAccount != null">
-        bank_account = #{record.bankAccount,jdbcType=BIGINT},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.linkMan != null">
-        link_man = #{record.linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="record.linkTel != null">
-        link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.customerName != null">
-        customer_name = #{record.customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.telPhone != null">
-        tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zip != null">
-        zip = #{record.zip,jdbcType=VARCHAR},
+      <if test="record.saleOrderId != null">
+        sale_order_id = #{record.saleOrderId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -227,65 +176,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update customer
-    set customer_id = #{record.customerId,jdbcType=BIGINT},
-      address = #{record.address,jdbcType=VARCHAR},
-      bank = #{record.bank,jdbcType=VARCHAR},
-      bank_account = #{record.bankAccount,jdbcType=BIGINT},
-      email = #{record.email,jdbcType=VARCHAR},
-      link_man = #{record.linkMan,jdbcType=VARCHAR},
-      link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      customer_name = #{record.customerName,jdbcType=VARCHAR},
-      tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      zip = #{record.zip,jdbcType=VARCHAR}
+    update sale_item
+    set sale_item_id = #{record.saleItemId,jdbcType=BIGINT},
+      sale_item_count = #{record.saleItemCount,jdbcType=BIGINT},
+      customer_id = #{record.customerId,jdbcType=BIGINT},
+      sale_item_name = #{record.saleItemName,jdbcType=VARCHAR},
+      sale_item_price = #{record.saleItemPrice,jdbcType=DOUBLE},
+      sale_order_id = #{record.saleOrderId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xu.bean.SaleItem">
-    update customer
+    update sale_item
     <set>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+      <if test="saleItemCount != null">
+        sale_item_count = #{saleItemCount,jdbcType=BIGINT},
       </if>
-      <if test="bank != null">
-        bank = #{bank,jdbcType=VARCHAR},
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=BIGINT},
       </if>
-      <if test="bankAccount != null">
-        bank_account = #{bankAccount,jdbcType=BIGINT},
+      <if test="saleItemName != null">
+        sale_item_name = #{saleItemName,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="saleItemPrice != null">
+        sale_item_price = #{saleItemPrice,jdbcType=DOUBLE},
       </if>
-      <if test="linkMan != null">
-        link_man = #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        link_tel = #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        customer_name = #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        tel_phone = #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        zip = #{zip,jdbcType=VARCHAR},
+      <if test="saleOrderId != null">
+        sale_order_id = #{saleOrderId,jdbcType=BIGINT},
       </if>
     </set>
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    where sale_item_id = #{saleItemId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xu.bean.SaleItem">
-    update customer
-    set address = #{address,jdbcType=VARCHAR},
-      bank = #{bank,jdbcType=VARCHAR},
-      bank_account = #{bankAccount,jdbcType=BIGINT},
-      email = #{email,jdbcType=VARCHAR},
-      link_man = #{linkMan,jdbcType=VARCHAR},
-      link_tel = #{linkTel,jdbcType=VARCHAR},
-      customer_name = #{customerName,jdbcType=VARCHAR},
-      tel_phone = #{telPhone,jdbcType=VARCHAR},
-      zip = #{zip,jdbcType=VARCHAR}
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    update sale_item
+    set sale_item_count = #{saleItemCount,jdbcType=BIGINT},
+      customer_id = #{customerId,jdbcType=BIGINT},
+      sale_item_name = #{saleItemName,jdbcType=VARCHAR},
+      sale_item_price = #{saleItemPrice,jdbcType=DOUBLE},
+      sale_order_id = #{saleOrderId,jdbcType=BIGINT}
+    where sale_item_id = #{saleItemId,jdbcType=BIGINT}
   </update>
 </mapper>

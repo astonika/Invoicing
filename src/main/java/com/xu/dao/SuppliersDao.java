@@ -10,7 +10,7 @@ public interface SuppliersDao {
 
     int deleteByExample(SuppliersExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long suppliersId);
 
     int insert(Suppliers record);
 
@@ -18,7 +18,7 @@ public interface SuppliersDao {
 
     List<Suppliers> selectByExample(SuppliersExample example);
 
-    Suppliers selectByPrimaryKey(Long customerId);
+    Suppliers selectByPrimaryKey(Long suppliersId);
 
     int updateByExampleSelective(@Param("record") Suppliers record, @Param("example") SuppliersExample example);
 

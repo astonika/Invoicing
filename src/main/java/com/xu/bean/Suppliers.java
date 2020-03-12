@@ -4,12 +4,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * customer
+ * suppliers
  * @author 
  */
 @Data
 public class Suppliers implements Serializable {
-    private Long customerId;
+    private Long suppliersId;
 
     private String address;
 
@@ -23,7 +23,7 @@ public class Suppliers implements Serializable {
 
     private String linkTel;
 
-    private String customerName;
+    private String supplierName;
 
     private String telPhone;
 

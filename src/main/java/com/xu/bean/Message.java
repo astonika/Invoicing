@@ -1,33 +1,22 @@
 package com.xu.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
- * customer
+ * message
  * @author 
  */
 @Data
 public class Message implements Serializable {
-    private Long customerId;
+    private Long id;
 
-    private String address;
+    private Date date;
 
-    private String bank;
+    private String msg;
 
-    private Long bankAccount;
-
-    private String email;
-
-    private String linkMan;
-
-    private String linkTel;
-
-    private String customerName;
-
-    private String telPhone;
-
-    private String zip;
+    private String flag;
 
     private static final long serialVersionUID = 1L;
 }

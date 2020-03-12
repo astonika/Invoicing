@@ -4,30 +4,26 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * customer
+ * goods
  * @author 
  */
 @Data
 public class Goods implements Serializable {
-    private Long customerId;
+    private Long goodsId;
 
-    private String address;
+    private String approveId;
 
-    private String bank;
+    private String batchId;
 
-    private Long bankAccount;
+    private String goodsName;
 
-    private String email;
+    private Double price;
 
-    private String linkMan;
+    private String space;
 
-    private String linkTel;
+    private Long supplierId;
 
-    private String customerName;
-
-    private String telPhone;
-
-    private String zip;
+    private String unit;
 
     private static final long serialVersionUID = 1L;
 }

@@ -4,30 +4,22 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * customer
+ * managers
  * @author 
  */
 @Data
 public class Managers implements Serializable {
-    private Long customerId;
+    private Long managersId;
 
-    private String address;
+    private Long managersAge;
 
-    private String bank;
+    private String managersGender;
 
-    private Long bankAccount;
+    private String managersName;
 
-    private String email;
+    private String managersPassword;
 
-    private String linkMan;
-
-    private String linkTel;
-
-    private String customerName;
-
-    private String telPhone;
-
-    private String zip;
+    private String managersPhonenumber;
 
     private static final long serialVersionUID = 1L;
 }

@@ -2,16 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xu.dao.EmployeeDao">
   <resultMap id="BaseResultMap" type="com.xu.bean.Employee">
-    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="bank" jdbcType="VARCHAR" property="bank" />
-    <result column="bank_account" jdbcType="BIGINT" property="bankAccount" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
-    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
-    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
-    <result column="tel_phone" jdbcType="VARCHAR" property="telPhone" />
-    <result column="zip" jdbcType="VARCHAR" property="zip" />
+    <id column="employee_id" jdbcType="BIGINT" property="employeeId" />
+    <result column="employee_age" jdbcType="BIGINT" property="employeeAge" />
+    <result column="employee_gender" jdbcType="VARCHAR" property="employeeGender" />
+    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
+    <result column="employee_password" jdbcType="VARCHAR" property="employeePassword" />
+    <result column="employee_phonenumber" jdbcType="VARCHAR" property="employeePhonenumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,8 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    customer_id, address, bank, bank_account, email, link_man, link_tel, customer_name, 
-    tel_phone, zip
+    employee_id, employee_age, employee_gender, employee_name, employee_password, employee_phonenumber
   </sql>
   <select id="selectByExample" parameterType="com.xu.bean.EmployeeExample" resultMap="BaseResultMap">
     select
@@ -81,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from customer
+    from employee
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,134 +87,88 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    from employee
+    where employee_id = #{employeeId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    delete from employee
+    where employee_id = #{employeeId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.xu.bean.EmployeeExample">
-    delete from customer
+    delete from employee
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xu.bean.Employee">
-    insert into customer (customer_id, address, bank, 
-      bank_account, email, link_man, 
-      link_tel, customer_name, tel_phone, 
-      zip)
-    values (#{customerId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
-      #{bankAccount,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
-      #{linkTel,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{telPhone,jdbcType=VARCHAR}, 
-      #{zip,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="employee_id" keyProperty="employeeId" parameterType="com.xu.bean.Employee" useGeneratedKeys="true">
+    insert into employee (employee_age, employee_gender, employee_name, 
+      employee_password, employee_phonenumber)
+    values (#{employeeAge,jdbcType=BIGINT}, #{employeeGender,jdbcType=VARCHAR}, #{employeeName,jdbcType=VARCHAR}, 
+      #{employeePassword,jdbcType=VARCHAR}, #{employeePhonenumber,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.xu.bean.Employee">
-    insert into customer
+  <insert id="insertSelective" keyColumn="employee_id" keyProperty="employeeId" parameterType="com.xu.bean.Employee" useGeneratedKeys="true">
+    insert into employee
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="customerId != null">
-        customer_id,
+      <if test="employeeAge != null">
+        employee_age,
       </if>
-      <if test="address != null">
-        address,
+      <if test="employeeGender != null">
+        employee_gender,
       </if>
-      <if test="bank != null">
-        bank,
+      <if test="employeeName != null">
+        employee_name,
       </if>
-      <if test="bankAccount != null">
-        bank_account,
+      <if test="employeePassword != null">
+        employee_password,
       </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="linkMan != null">
-        link_man,
-      </if>
-      <if test="linkTel != null">
-        link_tel,
-      </if>
-      <if test="customerName != null">
-        customer_name,
-      </if>
-      <if test="telPhone != null">
-        tel_phone,
-      </if>
-      <if test="zip != null">
-        zip,
+      <if test="employeePhonenumber != null">
+        employee_phonenumber,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="customerId != null">
-        #{customerId,jdbcType=BIGINT},
+      <if test="employeeAge != null">
+        #{employeeAge,jdbcType=BIGINT},
       </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
+      <if test="employeeGender != null">
+        #{employeeGender,jdbcType=VARCHAR},
       </if>
-      <if test="bank != null">
-        #{bank,jdbcType=VARCHAR},
+      <if test="employeeName != null">
+        #{employeeName,jdbcType=VARCHAR},
       </if>
-      <if test="bankAccount != null">
-        #{bankAccount,jdbcType=BIGINT},
+      <if test="employeePassword != null">
+        #{employeePassword,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="linkMan != null">
-        #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        #{zip,jdbcType=VARCHAR},
+      <if test="employeePhonenumber != null">
+        #{employeePhonenumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xu.bean.EmployeeExample" resultType="java.lang.Long">
-    select count(*) from customer
+    select count(*) from employee
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update customer
+    update employee
     <set>
-      <if test="record.customerId != null">
-        customer_id = #{record.customerId,jdbcType=BIGINT},
+      <if test="record.employeeId != null">
+        employee_id = #{record.employeeId,jdbcType=BIGINT},
       </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.employeeAge != null">
+        employee_age = #{record.employeeAge,jdbcType=BIGINT},
       </if>
-      <if test="record.bank != null">
-        bank = #{record.bank,jdbcType=VARCHAR},
+      <if test="record.employeeGender != null">
+        employee_gender = #{record.employeeGender,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankAccount != null">
-        bank_account = #{record.bankAccount,jdbcType=BIGINT},
+      <if test="record.employeeName != null">
+        employee_name = #{record.employeeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.employeePassword != null">
+        employee_password = #{record.employeePassword,jdbcType=VARCHAR},
       </if>
-      <if test="record.linkMan != null">
-        link_man = #{record.linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="record.linkTel != null">
-        link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.customerName != null">
-        customer_name = #{record.customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.telPhone != null">
-        tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zip != null">
-        zip = #{record.zip,jdbcType=VARCHAR},
+      <if test="record.employeePhonenumber != null">
+        employee_phonenumber = #{record.employeePhonenumber,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -227,65 +176,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update customer
-    set customer_id = #{record.customerId,jdbcType=BIGINT},
-      address = #{record.address,jdbcType=VARCHAR},
-      bank = #{record.bank,jdbcType=VARCHAR},
-      bank_account = #{record.bankAccount,jdbcType=BIGINT},
-      email = #{record.email,jdbcType=VARCHAR},
-      link_man = #{record.linkMan,jdbcType=VARCHAR},
-      link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      customer_name = #{record.customerName,jdbcType=VARCHAR},
-      tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      zip = #{record.zip,jdbcType=VARCHAR}
+    update employee
+    set employee_id = #{record.employeeId,jdbcType=BIGINT},
+      employee_age = #{record.employeeAge,jdbcType=BIGINT},
+      employee_gender = #{record.employeeGender,jdbcType=VARCHAR},
+      employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      employee_password = #{record.employeePassword,jdbcType=VARCHAR},
+      employee_phonenumber = #{record.employeePhonenumber,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xu.bean.Employee">
-    update customer
+    update employee
     <set>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+      <if test="employeeAge != null">
+        employee_age = #{employeeAge,jdbcType=BIGINT},
       </if>
-      <if test="bank != null">
-        bank = #{bank,jdbcType=VARCHAR},
+      <if test="employeeGender != null">
+        employee_gender = #{employeeGender,jdbcType=VARCHAR},
       </if>
-      <if test="bankAccount != null">
-        bank_account = #{bankAccount,jdbcType=BIGINT},
+      <if test="employeeName != null">
+        employee_name = #{employeeName,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="employeePassword != null">
+        employee_password = #{employeePassword,jdbcType=VARCHAR},
       </if>
-      <if test="linkMan != null">
-        link_man = #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        link_tel = #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        customer_name = #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        tel_phone = #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        zip = #{zip,jdbcType=VARCHAR},
+      <if test="employeePhonenumber != null">
+        employee_phonenumber = #{employeePhonenumber,jdbcType=VARCHAR},
       </if>
     </set>
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    where employee_id = #{employeeId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xu.bean.Employee">
-    update customer
-    set address = #{address,jdbcType=VARCHAR},
-      bank = #{bank,jdbcType=VARCHAR},
-      bank_account = #{bankAccount,jdbcType=BIGINT},
-      email = #{email,jdbcType=VARCHAR},
-      link_man = #{linkMan,jdbcType=VARCHAR},
-      link_tel = #{linkTel,jdbcType=VARCHAR},
-      customer_name = #{customerName,jdbcType=VARCHAR},
-      tel_phone = #{telPhone,jdbcType=VARCHAR},
-      zip = #{zip,jdbcType=VARCHAR}
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    update employee
+    set employee_age = #{employeeAge,jdbcType=BIGINT},
+      employee_gender = #{employeeGender,jdbcType=VARCHAR},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      employee_password = #{employeePassword,jdbcType=VARCHAR},
+      employee_phonenumber = #{employeePhonenumber,jdbcType=VARCHAR}
+    where employee_id = #{employeeId,jdbcType=BIGINT}
   </update>
 </mapper>

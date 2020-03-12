@@ -1,7 +1,7 @@
 package com.xu.dao;
 
-import com.xu.bean.DeptEmp;
 import com.xu.bean.DeptEmpExample;
+import com.xu.bean.DeptEmpKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,21 +10,15 @@ public interface DeptEmpDao {
 
     int deleteByExample(DeptEmpExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(DeptEmpKey key);
 
-    int insert(DeptEmp record);
+    int insert(DeptEmpKey record);
 
-    int insertSelective(DeptEmp record);
+    int insertSelective(DeptEmpKey record);
 
-    List<DeptEmp> selectByExample(DeptEmpExample example);
+    List<DeptEmpKey> selectByExample(DeptEmpExample example);
 
-    DeptEmp selectByPrimaryKey(Long customerId);
+    int updateByExampleSelective(@Param("record") DeptEmpKey record, @Param("example") DeptEmpExample example);
 
-    int updateByExampleSelective(@Param("record") DeptEmp record, @Param("example") DeptEmpExample example);
-
-    int updateByExample(@Param("record") DeptEmp record, @Param("example") DeptEmpExample example);
-
-    int updateByPrimaryKeySelective(DeptEmp record);
-
-    int updateByPrimaryKey(DeptEmp record);
+    int updateByExample(@Param("record") DeptEmpKey record, @Param("example") DeptEmpExample example);
 }

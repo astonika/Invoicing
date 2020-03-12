@@ -2,16 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xu.dao.MessageDao">
   <resultMap id="BaseResultMap" type="com.xu.bean.Message">
-    <id column="customer_id" jdbcType="BIGINT" property="customerId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="bank" jdbcType="VARCHAR" property="bank" />
-    <result column="bank_account" jdbcType="BIGINT" property="bankAccount" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="link_man" jdbcType="VARCHAR" property="linkMan" />
-    <result column="link_tel" jdbcType="VARCHAR" property="linkTel" />
-    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
-    <result column="tel_phone" jdbcType="VARCHAR" property="telPhone" />
-    <result column="zip" jdbcType="VARCHAR" property="zip" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,8 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    customer_id, address, bank, bank_account, email, link_man, link_tel, customer_name, 
-    tel_phone, zip
+    id, `date`, msg, flag
   </sql>
   <select id="selectByExample" parameterType="com.xu.bean.MessageExample" resultMap="BaseResultMap">
     select
@@ -81,7 +74,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from customer
+    from message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,134 +85,70 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    from message
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from customer
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    delete from message
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.xu.bean.MessageExample">
-    delete from customer
+    delete from message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.xu.bean.Message">
-    insert into customer (customer_id, address, bank, 
-      bank_account, email, link_man, 
-      link_tel, customer_name, tel_phone, 
-      zip)
-    values (#{customerId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{bank,jdbcType=VARCHAR}, 
-      #{bankAccount,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, 
-      #{linkTel,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{telPhone,jdbcType=VARCHAR}, 
-      #{zip,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.xu.bean.Message" useGeneratedKeys="true">
+    insert into message (`date`, msg, flag
+      )
+    values (#{date,jdbcType=TIMESTAMP}, #{msg,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.xu.bean.Message">
-    insert into customer
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.xu.bean.Message" useGeneratedKeys="true">
+    insert into message
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="customerId != null">
-        customer_id,
+      <if test="date != null">
+        `date`,
       </if>
-      <if test="address != null">
-        address,
+      <if test="msg != null">
+        msg,
       </if>
-      <if test="bank != null">
-        bank,
-      </if>
-      <if test="bankAccount != null">
-        bank_account,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="linkMan != null">
-        link_man,
-      </if>
-      <if test="linkTel != null">
-        link_tel,
-      </if>
-      <if test="customerName != null">
-        customer_name,
-      </if>
-      <if test="telPhone != null">
-        tel_phone,
-      </if>
-      <if test="zip != null">
-        zip,
+      <if test="flag != null">
+        flag,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="customerId != null">
-        #{customerId,jdbcType=BIGINT},
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
       </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
+      <if test="msg != null">
+        #{msg,jdbcType=VARCHAR},
       </if>
-      <if test="bank != null">
-        #{bank,jdbcType=VARCHAR},
-      </if>
-      <if test="bankAccount != null">
-        #{bankAccount,jdbcType=BIGINT},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="linkMan != null">
-        #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        #{zip,jdbcType=VARCHAR},
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.xu.bean.MessageExample" resultType="java.lang.Long">
-    select count(*) from customer
+    select count(*) from message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update customer
+    update message
     <set>
-      <if test="record.customerId != null">
-        customer_id = #{record.customerId,jdbcType=BIGINT},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.date != null">
+        `date` = #{record.date,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.bank != null">
-        bank = #{record.bank,jdbcType=VARCHAR},
+      <if test="record.msg != null">
+        msg = #{record.msg,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankAccount != null">
-        bank_account = #{record.bankAccount,jdbcType=BIGINT},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.linkMan != null">
-        link_man = #{record.linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="record.linkTel != null">
-        link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.customerName != null">
-        customer_name = #{record.customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.telPhone != null">
-        tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.zip != null">
-        zip = #{record.zip,jdbcType=VARCHAR},
+      <if test="record.flag != null">
+        flag = #{record.flag,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -227,65 +156,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update customer
-    set customer_id = #{record.customerId,jdbcType=BIGINT},
-      address = #{record.address,jdbcType=VARCHAR},
-      bank = #{record.bank,jdbcType=VARCHAR},
-      bank_account = #{record.bankAccount,jdbcType=BIGINT},
-      email = #{record.email,jdbcType=VARCHAR},
-      link_man = #{record.linkMan,jdbcType=VARCHAR},
-      link_tel = #{record.linkTel,jdbcType=VARCHAR},
-      customer_name = #{record.customerName,jdbcType=VARCHAR},
-      tel_phone = #{record.telPhone,jdbcType=VARCHAR},
-      zip = #{record.zip,jdbcType=VARCHAR}
+    update message
+    set id = #{record.id,jdbcType=BIGINT},
+      `date` = #{record.date,jdbcType=TIMESTAMP},
+      msg = #{record.msg,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.xu.bean.Message">
-    update customer
+    update message
     <set>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+      <if test="date != null">
+        `date` = #{date,jdbcType=TIMESTAMP},
       </if>
-      <if test="bank != null">
-        bank = #{bank,jdbcType=VARCHAR},
+      <if test="msg != null">
+        msg = #{msg,jdbcType=VARCHAR},
       </if>
-      <if test="bankAccount != null">
-        bank_account = #{bankAccount,jdbcType=BIGINT},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="linkMan != null">
-        link_man = #{linkMan,jdbcType=VARCHAR},
-      </if>
-      <if test="linkTel != null">
-        link_tel = #{linkTel,jdbcType=VARCHAR},
-      </if>
-      <if test="customerName != null">
-        customer_name = #{customerName,jdbcType=VARCHAR},
-      </if>
-      <if test="telPhone != null">
-        tel_phone = #{telPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="zip != null">
-        zip = #{zip,jdbcType=VARCHAR},
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
       </if>
     </set>
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xu.bean.Message">
-    update customer
-    set address = #{address,jdbcType=VARCHAR},
-      bank = #{bank,jdbcType=VARCHAR},
-      bank_account = #{bankAccount,jdbcType=BIGINT},
-      email = #{email,jdbcType=VARCHAR},
-      link_man = #{linkMan,jdbcType=VARCHAR},
-      link_tel = #{linkTel,jdbcType=VARCHAR},
-      customer_name = #{customerName,jdbcType=VARCHAR},
-      tel_phone = #{telPhone,jdbcType=VARCHAR},
-      zip = #{zip,jdbcType=VARCHAR}
-    where customer_id = #{customerId,jdbcType=BIGINT}
+    update message
+    set `date` = #{date,jdbcType=TIMESTAMP},
+      msg = #{msg,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

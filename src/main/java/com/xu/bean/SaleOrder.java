@@ -1,33 +1,26 @@
 package com.xu.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
- * customer
+ * sale_order
  * @author 
  */
 @Data
 public class SaleOrder implements Serializable {
+    private Long saleOrderId;
+
     private Long customerId;
 
-    private String address;
+    private String flag;
 
-    private String bank;
+    private String saleOrderPay;
 
-    private Long bankAccount;
+    private Date saleOrderSaleDate;
 
-    private String email;
-
-    private String linkMan;
-
-    private String linkTel;
-
-    private String customerName;
-
-    private String telPhone;
-
-    private String zip;
+    private Double saleOrderTotal;
 
     private static final long serialVersionUID = 1L;
 }

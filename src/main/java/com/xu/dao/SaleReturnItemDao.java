@@ -10,7 +10,7 @@ public interface SaleReturnItemDao {
 
     int deleteByExample(SaleReturnItemExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long saleReturnItemId);
 
     int insert(SaleReturnItem record);
 
@@ -18,7 +18,7 @@ public interface SaleReturnItemDao {
 
     List<SaleReturnItem> selectByExample(SaleReturnItemExample example);
 
-    SaleReturnItem selectByPrimaryKey(Long customerId);
+    SaleReturnItem selectByPrimaryKey(Long saleReturnItemId);
 
     int updateByExampleSelective(@Param("record") SaleReturnItem record, @Param("example") SaleReturnItemExample example);
 

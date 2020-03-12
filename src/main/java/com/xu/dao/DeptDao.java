@@ -10,7 +10,7 @@ public interface DeptDao {
 
     int deleteByExample(DeptExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long deptId);
 
     int insert(Dept record);
 
@@ -18,7 +18,7 @@ public interface DeptDao {
 
     List<Dept> selectByExample(DeptExample example);
 
-    Dept selectByPrimaryKey(Long customerId);
+    Dept selectByPrimaryKey(Long deptId);
 
     int updateByExampleSelective(@Param("record") Dept record, @Param("example") DeptExample example);
 

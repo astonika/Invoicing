@@ -10,7 +10,7 @@ public interface MessageDao {
 
     int deleteByExample(MessageExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long id);
 
     int insert(Message record);
 
@@ -18,7 +18,7 @@ public interface MessageDao {
 
     List<Message> selectByExample(MessageExample example);
 
-    Message selectByPrimaryKey(Long customerId);
+    Message selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") Message record, @Param("example") MessageExample example);
 

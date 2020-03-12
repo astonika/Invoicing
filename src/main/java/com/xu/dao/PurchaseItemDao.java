@@ -10,7 +10,7 @@ public interface PurchaseItemDao {
 
     int deleteByExample(PurchaseItemExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long purchaseItemId);
 
     int insert(PurchaseItem record);
 
@@ -18,7 +18,7 @@ public interface PurchaseItemDao {
 
     List<PurchaseItem> selectByExample(PurchaseItemExample example);
 
-    PurchaseItem selectByPrimaryKey(Long customerId);
+    PurchaseItem selectByPrimaryKey(Long purchaseItemId);
 
     int updateByExampleSelective(@Param("record") PurchaseItem record, @Param("example") PurchaseItemExample example);
 

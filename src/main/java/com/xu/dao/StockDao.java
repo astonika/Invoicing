@@ -10,7 +10,7 @@ public interface StockDao {
 
     int deleteByExample(StockExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long stockId);
 
     int insert(Stock record);
 
@@ -18,7 +18,7 @@ public interface StockDao {
 
     List<Stock> selectByExample(StockExample example);
 
-    Stock selectByPrimaryKey(Long customerId);
+    Stock selectByPrimaryKey(Long stockId);
 
     int updateByExampleSelective(@Param("record") Stock record, @Param("example") StockExample example);
 

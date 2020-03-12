@@ -10,7 +10,7 @@ public interface EmployeeDao {
 
     int deleteByExample(EmployeeExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long employeeId);
 
     int insert(Employee record);
 
@@ -18,7 +18,7 @@ public interface EmployeeDao {
 
     List<Employee> selectByExample(EmployeeExample example);
 
-    Employee selectByPrimaryKey(Long customerId);
+    Employee selectByPrimaryKey(Long employeeId);
 
     int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);
 

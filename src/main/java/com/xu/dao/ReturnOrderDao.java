@@ -10,7 +10,7 @@ public interface ReturnOrderDao {
 
     int deleteByExample(ReturnOrderExample example);
 
-    int deleteByPrimaryKey(Long customerId);
+    int deleteByPrimaryKey(Long returnOrderId);
 
     int insert(ReturnOrder record);
 
@@ -18,7 +18,7 @@ public interface ReturnOrderDao {
 
     List<ReturnOrder> selectByExample(ReturnOrderExample example);
 
-    ReturnOrder selectByPrimaryKey(Long customerId);
+    ReturnOrder selectByPrimaryKey(Long returnOrderId);
 
     int updateByExampleSelective(@Param("record") ReturnOrder record, @Param("example") ReturnOrderExample example);
 

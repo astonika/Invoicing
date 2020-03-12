@@ -4,30 +4,22 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * customer
+ * employee
  * @author 
  */
 @Data
 public class Employee implements Serializable {
-    private Long customerId;
+    private Long employeeId;
 
-    private String address;
+    private Long employeeAge;
 
-    private String bank;
+    private String employeeGender;
 
-    private Long bankAccount;
+    private String employeeName;
 
-    private String email;
+    private String employeePassword;
 
-    private String linkMan;
-
-    private String linkTel;
-
-    private String customerName;
-
-    private String telPhone;
-
-    private String zip;
+    private String employeePhonenumber;
 
     private static final long serialVersionUID = 1L;
 }
